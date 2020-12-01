@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'com.google.protobuf' version '0.8.10'
+    id 'idea'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.11.4"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.33.1'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation 'io.grpc:grpc-netty-shaded:1.33.1'
+    implementation 'io.grpc:grpc-protobuf:1.33.1'
+    implementation 'io.grpc:grpc-stub:1.33.1'
+    implementation "io.grpc:grpc-services:1.33.1"   // reflection
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-sync
+    compile group: 'org.mongodb', name: 'mongodb-driver-sync', version: '4.1.1'
+}
+
+// if you have source imports issues, add the below
+sourceSets.main.java.srcDir new File(buildDir, 'generated/source')
+idea {
+    module {
+        // Marks the already(!) added srcDir as "generated"
+        generatedSourceDirs += file('build/generated/source')
+    }
+}
