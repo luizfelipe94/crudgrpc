@@ -85,7 +85,7 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
 
         collection.find().iterator().forEachRemaining(document -> responseObserver.onNext(
                 ListUserResponse.newBuilder()
-                .setUser(this.documentTouser(document))
+                .setUser(this.documentToUser(document))
                 .build()
         ));
 
@@ -93,7 +93,7 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
 
     }
 
-    private User documentTouser(Document document){
+    private User documentToUser(Document document){
         return User.newBuilder()
                 .setName(document.getString("name"))
                 .setEmail(document.getString("email"))
