@@ -40,7 +40,6 @@ dependencies {
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
-    // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-sync
     compile group: 'org.mongodb', name: 'mongodb-driver-sync', version: '4.1.1'
 }
 
